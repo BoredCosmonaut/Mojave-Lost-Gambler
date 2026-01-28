@@ -1,7 +1,7 @@
 import { getRandomLocation } from "../models/location.model";
 import { calculateDistance,calculateScore } from "../utils/scoring";
 
-export async function startRoubd(req,res) {
+export async function startRound(req,res) {
     try {
         const location = await getRandomLocation();
         res.status(200).json({message: 'New round started',location:location});
