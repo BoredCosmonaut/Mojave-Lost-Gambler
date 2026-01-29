@@ -1,11 +1,11 @@
-import { getPendingSubmissions,getSubmissionById,updateSubmissionStatus } from "../models/submissions.model";
-import { createLocationFromSubmission } from "../models/location.model";
+import { getPendingSubmissions,getSubmissionById,updateSubmissionStatus } from "../models/submissions.model.js";
+import { createLocationFromSubmission } from "../models/location.model.js";
 
 
 export async function listPending(req,res) {
     try {
         const result = await getPendingSubmissions()
-        res.status(200).json({pending:pending});
+        res.status(200).json({pending:result});
     } catch (err) {
         console.error(err);
     }

@@ -1,9 +1,9 @@
-import { getTopScores,createScore } from "../models/score.model";
+import { getTopScores,createScore as submitScore } from "../models/score.model.js";
 
 export async function createScore(req,res) {
     const {playerName,score,distance} = req.body;
     try {
-        await createScore(playerName,score,distance);
+        await submitScore(playerName,score,distance);
         res.status(201).json({message:'Score submitted'})
     } catch (err) {
         console.error(err);

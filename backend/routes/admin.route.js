@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { listPending,approveSubmission,denySubmission } from "../controllers/admin.controller";
+import { listPending,approveSubmission,denySubmission } from "../controllers/admin.controller.js";
 
 const router = Router();
 

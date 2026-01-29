@@ -1,4 +1,4 @@
-import { pool } from "../db";
+import { pool } from "../db/index.js";
 
 export async function createSubmission(data) {
     const {image_url,x,y} = data;

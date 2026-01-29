@@ -1,12 +1,13 @@
-import { createSubmission } from "../models/submissions.model";
+import { createSubmission } from "../models/submissions.model.js";
 
 export async function submitImage(req,res) {
+    console.log('Submission start')
     if(!req.file) {
         res.status(400).json({message:'Image required'});
     }
 
     const submission = await createSubmission({
-        imageUrl: `/uploads/${req.file.filename}`,
+        image_url: `/uploads/submissions/${req.file.filename}`,
         x:Number(req.body.x),
         y:Number(req.body.y)
     });

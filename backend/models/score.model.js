@@ -1,4 +1,4 @@
-import { pool } from "../db";
+import { pool } from "../db/index.js";
 
 export async function createScore(data) {
     const {playerName,score,distance} = data;

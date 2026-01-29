@@ -1,5 +1,5 @@
-import { Router, Router } from "express";
-import { startRound,submitGuess } from "../controllers/game.controller";
+import { Router} from "express";
+import { startRound,submitGuess } from "../controllers/game.controller.js";
 
 const router = Router()
 

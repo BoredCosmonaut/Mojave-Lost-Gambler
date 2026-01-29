@@ -1,5 +1,5 @@
-import { getRandomLocation } from "../models/location.model";
-import { calculateDistance,calculateScore } from "../utils/scoring";
+import { getRandomLocation } from "../models/location.model.js";
+import { calculateDistance,calculateScore } from "../utils/scoring.js";
 
 export async function startRound(req,res) {
     try {
