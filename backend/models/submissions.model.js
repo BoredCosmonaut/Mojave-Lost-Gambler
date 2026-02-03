@@ -3,7 +3,7 @@ import { pool } from "../db/index.js";
 export async function createSubmission(data) {
     const {image_url,x,y} = data;
     try {
-        const result= await pool.query(`INSERT INTO submissions (image_url,x,y) VALUES ($1,$2,$3)`, [data.image_url,data.x,data.y]);
+        const result= await pool.query(`INSERT INTO submissions (image_url,x,y,region) VALUES ($1,$2,$3,$4)`, [data.image_url,data.x,data.y,data.region]);
         return result.rows[0];        
     } catch (err) {
         console.error(err)

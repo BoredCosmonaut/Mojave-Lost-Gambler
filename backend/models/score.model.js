@@ -1,9 +1,10 @@
 import { pool } from "../db/index.js";
 
-export async function createScore(data) {
-    const {playerName,score,distance} = data;
+export async function submitScore(data) {
+    console.log(data);
+    const {player_name,score} = data;
     try {
-        await pool.query(`INSERT INTO scores (playerName,score,distance) VALUES ($1,$2,$3)`,[playerName,score,distance]);
+        await pool.query(`INSERT INTO scores (player_name,score) VALUES ($1,$2)`,[player_name,score]);
     } catch (err) {
         console.error(err);
     }

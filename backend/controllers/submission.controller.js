@@ -9,7 +9,8 @@ export async function submitImage(req,res) {
     const submission = await createSubmission({
         image_url: `/uploads/submissions/${req.file.filename}`,
         x:Number(req.body.x),
-        y:Number(req.body.y)
+        y:Number(req.body.y),
+        region:String(req.body.region)
     });
 
     res.status(201).json({message:'Submission taken', submission});

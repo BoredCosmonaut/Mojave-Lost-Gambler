@@ -16,7 +16,7 @@ console.log('Serving uploads from:', uploadsPath);
 
 app.use(
   '/uploads',
-  express.static(path.join(__dirname, '..', 'uploads'))
+  express.static(path.join(__dirname,'..', '..', 'uploads'))
 );
 
 app.get('/ping', (req, res) => {

@@ -11,6 +11,7 @@ export async function startRound(req,res) {
 }
 
 export async function submitGuess(req,res) {
+    console.log(req.body);
     const {actualX,actualY,guessX,guessY} = req.body;
     const distance = calculateDistance({x:guessX,y:guessY}, {x:actualX,y:actualY});
     res.status(200).json({message:'Calculated score and distance!',distance:distance,score:calculateScore(distance)});
