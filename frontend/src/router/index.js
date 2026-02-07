@@ -1,13 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import PlayView from '@/views/playView.vue';
+import SubmitView from '@/views/submitView.vue';
 
-const routes = [
-
-]
-
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
-})
-
-export default router
+export default createRouter({
+  history: createWebHistory(),
+  routes: [
+    { path: '/', component: PlayView },
+    { path: '/submit', component: SubmitView }
+  ]
+});

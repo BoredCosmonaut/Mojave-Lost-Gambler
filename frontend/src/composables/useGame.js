@@ -21,8 +21,9 @@ export function useGame() {
         loading.value = true;
         error.value = null;
         try {
-            const {data} = await gameService.getRound();
+            const data = await gameService.getRound();
             round.value = data;
+            console.log(round.value.location.image_url)
             lastResult.value = null;
         } catch (err) {
             error.value = err;
@@ -32,18 +33,20 @@ export function useGame() {
         }
     }
 
-    async function guessRound(actualX,actualY) {
+    async function guessRound(actualX,actualY,guessX,guessY) {
         loading.value = true;
         try {
-            const {data} = await gameService.submitGuess({
+            console.log('guessRound called with:', { actualX, actualY, guessX, guessY });
+            const res = await gameService.submitGuess({
                 actualX: actualX,
                 actualY:actualY,
                 guessX:guessX,
                 guessY:guessY
             });
-
-            lastResult.value = data;
-            totalScore.value += data.score;
+            console.log('Distance:', res.data.distance);
+            console.log('Score:', res.data.score);
+            lastResult.value = res.data;
+            totalScore.value += res.data.score;
             roundIndex.value++;
         } catch (err) {
             error.value = err;

@@ -1,7 +1,7 @@
 import { pool } from "../db/index.js";
 
 export async function getRandomLocation() {
-    const result = await pool.query(`SELECT id,image_url FROM locations ORDER BY RANDOM() LIMIT 1`);
+    const result = await pool.query(`SELECT * FROM locations ORDER BY RANDOM() LIMIT 1`);
     return result.rows[0];
 }
 

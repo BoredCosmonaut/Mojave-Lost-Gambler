@@ -13,6 +13,7 @@ export async function getRound() {
 export async function submitGuess(data) {
     try {
         const res = await api.post('/game/guess',data)
+        return res
     } catch (err) {
         console.error(err)
         throw err;
