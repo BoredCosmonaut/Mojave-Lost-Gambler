@@ -31,7 +31,10 @@ async function onGuess(lat, lng) {
     lat,
     lng
   );
-  startRound()
+}
+
+function handleNextRound() {
+  startRound();
 }
 </script>
 
@@ -41,10 +44,10 @@ async function onGuess(lat, lng) {
   <div class="play-container">
 
     <header class="top-bar">
-      <h1>☢ Mojave GeoGuessr</h1>
+      <h1>Mojave GeoGuessr</h1>
       <div class="round-info">
         Round {{ roundIndex }} / 5
-        Score: {{ lastResult ? Math.round(lastResult.score) : 0 }}
+        Score: {{ totalScore ? Math.round(totalScore) : 0 }}
       </div>
     </header>
 
@@ -58,7 +61,8 @@ async function onGuess(lat, lng) {
     <div class="hud">
       <div class="map-box">
         <MojaveMap 
-          @guess="onGuess" 
+          @guess="onGuess"
+          @next-round="handleNextRound" 
           :round="roundIndex" 
           :actualLocation="lastResult?.actual"
         />

@@ -11,7 +11,7 @@ export function useGame() {
     const lastResult = ref(null);
     const loading = ref(false);
     const error = ref(null);
-    const topScores = ref(null)
+    const topScores = ref([]);
 
     const isGameOver = computed(() =>
     roundIndex.value >= total_rounds
@@ -25,6 +25,7 @@ export function useGame() {
             round.value = data;
             console.log(round.value.location.image_url)
             lastResult.value = null;
+            roundIndex.value++;
         } catch (err) {
             error.value = err;
             console.error(err)
@@ -45,9 +46,11 @@ export function useGame() {
             });
             console.log('Distance:', res.data.distance);
             console.log('Score:', res.data.score);
-            lastResult.value = res.data;
+            lastResult.value = {
+                ...res.data,
+                actual: { x: actualX, y: actualY }
+            }
             totalScore.value += res.data.score;
-            roundIndex.value++;
         } catch (err) {
             error.value = err;
             console.error(err)
@@ -58,6 +61,7 @@ export function useGame() {
 
     async function submitScore(name) {
         loading.value = true;
+        console.log(totalScore.value);
         try {
             await scoreService.submitScore({
                 player_name: name,
@@ -74,10 +78,20 @@ export function useGame() {
     async function getTopScores() {
         loading.value = true;
         try {
-            const {data} = await scoreService.getTopScores();
-            topScores.value = data
+            const res = await scoreService.getTopScores();
+            
+            if (res.scores && Array.isArray(res.scores)) {
+                topScores.value = res.scores;
+            } else if (res.scores) {
+                topScores.value = [res.scores]; 
+            } else {
+                topScores.value = []; 
+            }
+            
+            console.log("Processed Scores:", topScores.value);
         } catch (err) {
             error.value = err;
+            topScores.value = []; 
             console.error(err);
         } finally {
             loading.value = false;
