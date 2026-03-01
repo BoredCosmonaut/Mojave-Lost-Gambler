@@ -95,22 +95,23 @@ function submitGuess() {
 <template>
   <div class="map-outer">
     <div id="map" />
+    
     <div class="map-controls">
       <button
         v-if="!submitted"
-        class="submit-btn"
+        class="hud-btn"
         @click="submitGuess"
         :disabled="guessLat === null"
       >
-        Submit Guess
+        [ EXECUTE_GUESS ]
       </button>
 
       <button
         v-else
-        class="submit-btn next-round"
+        class="hud-btn next-round"
         @click="$emit('next-round')"
       >
-        Next Round
+        [ NEXT_LOCATION ]
       </button>
     </div>
   </div>
@@ -119,69 +120,67 @@ function submitGuess() {
 <style scoped>
 .map-outer {
   width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
+  height: 100%;
   position: relative;
-  bottom: 15%;
+  background: #000;
 }
 
 #map {
   width: 100%;
-  aspect-ratio: 1 / 1;
-  background: #fff;
-  border: 1px solid #e0eee0; 
+  height: 100%;
+  background: #000; 
+  /* Minimal amber border with a tiny glow */
+  border: 1px solid #ffb642;
+  box-shadow: 0 0 5px rgba(255, 182, 66, 0.2); 
 }
 
 .map-controls {
-  margin-top: 15px;
-  display: flex;
-  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 
-.submit-btn {
-  padding: 10px 40px;
-  background: #2d5a27; 
-  color: white;
+.hud-btn {
+  width: 100%;
+  padding: 14px;
+  background: #000; 
+  color: #ffb642;
   border: none;
-  font-family: inherit;
-  letter-spacing: 1px;
+  border-top: 1px solid #ffb642;
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  font-size: 0.8rem;
+  position: relative;
+  font-size: 0.9rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: opacity 0.3s ease;
+  text-shadow: 0 0 4px rgba(255, 182, 66, 0.6);
+  box-shadow: inset 0 0 5px rgba(255, 182, 66, 0.1);
+}
+.hud-btn:hover:not(:disabled) {
+  cursor: pointer;
 }
 
-.submit-btn:hover:not(:disabled) {
-  opacity: 0.8;
-}
-
-.submit-btn:disabled {
-  background: #f0f0f0;
-  color: #ccc;
+.hud-btn:disabled {
+  color: #ffb642;
+  opacity: 0.2;
+  text-shadow: none;
   cursor: not-allowed;
 }
 
-.submit-btn {
-  padding: 10px 40px;
-  background: #2d5a27;
-  color: white;
-  border: none;
-  font-family: inherit;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.hud-btn.next-round {
+  /* Double line for the 'Next' action to distinguish it without a new box */
+  border-top: 3px double #ffb642;
 }
 
-.submit-btn.next-round {
-  background: #ffffff;
-  color: #2d5a27;
-  border: 1px solid #2d5a27;
+/* Deep targeting for Leaflet internals */
+:deep(.leaflet-container) {
+  background: #000 !important;
 }
 
-.submit-btn:hover {
-  filter: brightness(1.1);
+:deep(.leaflet-control-zoom) {
+  display: none;
 }
-
 </style>

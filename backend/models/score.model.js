@@ -9,7 +9,7 @@ export async function submitScore({ player_name, score }) {
         );
     } catch (err) {
         console.error("Database Error:", err);
-        throw err; // Throw so the controller knows it failed
+        throw err;
     }
 }
 export async function getTopScores(limit = 5) {
