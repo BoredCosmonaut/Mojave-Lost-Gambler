@@ -148,7 +148,7 @@ const displayedScore = computed(() => Math.round(output.value));
 
 .map-frame {
   width: 340px;
-  height: 340px
+  height: 340px;
   overflow: hidden; 
 }
 

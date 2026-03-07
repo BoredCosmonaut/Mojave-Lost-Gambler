@@ -1,5 +1,8 @@
 import { getPendingSubmissions,getSubmissionById,updateSubmissionStatus } from "../models/submissions.model.js";
+import {getAdminByEmail} from '../models/admin.model.js'
 import { createLocationFromSubmission,getAllLocations } from "../models/location.model.js";
+import {generateToken} from '../utils/generateToken.js';
+import bcrypt from 'bcrypt'
 
 
 export async function listPending(req,res) {
@@ -43,6 +46,26 @@ export async function denySubmission(req,res) {
         res.json({message:'Submission denied'})
     } catch (err) {
         console.error(err)
+    }
+}
+
+export async function loginAdmin(req,res) {
+    const {email,password} = req.body;
+    try {
+        const user = await getAdminByEmail(email);
+        console.log(user)
+        if(!user) return res.status(400).json({message:'Email or password wrong'});
+        const isMatch = await bcrypt.compare(password,user.password);
+        if(!isMatch) return res.status(401).json({message:'Password wrong'});
+        console.log("User role from DB:", user.role,user.id,user.email);
+        const token = generateToken({id:user.id,email:user.email,role:user.role});
+        res.json({
+            message:'Login succesful',
+            token:token
+        })
+    } catch (err) {
+        console.error('Error while admin login:',err);
+        res.status(500).json({message:'Login unsuccesful due to server'});
     }
 }
 

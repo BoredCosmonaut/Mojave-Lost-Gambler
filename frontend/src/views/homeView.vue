@@ -52,6 +52,9 @@
 
             <div class="actions">
                 <button @click="handleButtonClick" class="btn-start">Start Trek</button>
+                <button @click="router.push('/submit')" class="btn-secondary">
+                  [ Contribute_Data ]
+                </button>
             </div>
 
             <div v-if="displayScores?.length > 0" class="leaderboard-preview">
@@ -157,6 +160,31 @@
   opacity: 1;
   text-decoration: underline;
   text-underline-offset: 8px;
+}
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: none;
+  color: var(--theme-color);
+  font-family: monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+  padding: 10px;
+}
+
+.btn-secondary:hover {
+  opacity: 1;
+  letter-spacing: 0.3rem; 
 }
 
 .btn-start {
