@@ -37,3 +37,12 @@ export async function denySubmission(submission_id) {
         throw err
     }
 }
+
+export async function loginAdmin(email,password) {
+    try {
+        const res = await api.post('/admin/login',{email,password});
+        return res.data
+    } catch (err) {
+        console.error(err)
+    }
+}
