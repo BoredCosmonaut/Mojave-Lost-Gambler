@@ -13,7 +13,7 @@ export async function getSubmissions() {
 export async function getAllApproved() {
     try {
         const res = await api.get(`/admin/locations`);
-        return res.data;;
+        return res.data;
     } catch (err) {
         console.error(err);
         throw err
@@ -22,7 +22,7 @@ export async function getAllApproved() {
 
 export async function approveSubmission(submission_id) {
     try {
-        await api.post(`/admin/${submission_id}/approve`);
+        await api.post(`/admin/submissions/${submission_id}/approve`);
     } catch (err) {
         console.error(err);
         throw err
@@ -31,7 +31,7 @@ export async function approveSubmission(submission_id) {
 
 export async function denySubmission(submission_id) {
     try {
-        await api.post(`/admin/${submission_id}/deny`);
+        await api.delete(`/admin/submissions/${submission_id}/deny`);
     } catch (err) {
         console.error(err);
         throw err

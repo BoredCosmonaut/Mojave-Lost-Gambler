@@ -1,24 +1,24 @@
-import ref, { computed } from 'vue'
+import {ref, computed } from 'vue'
 import {approveSubmission,denySubmission,getAllApproved,getSubmissions,loginAdmin} from '@/services/adminService'
 
 const loading = ref(false);
 const error = ref(null);
-const token = ref(localStorage.getItem('mojave_access_key', token));
-    
+const token = ref(null);
 
 export function useAdmin() {
 
     const isAuthenticated = computed(() => !!token.value)
 
-    async function loginAdmin() {
+    async function handleLogin(email,password) {
         loading.value = true;
         error.value = null;
         try {
             const res = await loginAdmin(email,password);
-            if(res && res.data.token) {
-                token.value = res.data.token;
-                localStorage.setItem('mojave_access_key', token);
-                return {message:res.data.message, success:true};
+            console.log(res)
+            if(res && res.token) {
+                token.value = res.token;
+                localStorage.setItem('mojave_access_key', res.token);
+                return {message:res.message, success:true};
             } else {
                 throw new error('Invalid response data');
             }
@@ -27,6 +27,7 @@ export function useAdmin() {
             return {success:false};
         } finally {
             loading.value = false
+            token.value = localStorage.getItem('mojave_access_key');
         }
     }
 
@@ -43,7 +44,7 @@ export function useAdmin() {
             const data = await getSubmissions();
             return data;
         } catch (err) {
-            error.value('FETCH_ERR: PENDING_DATA_UNAVAILABLE');
+            error.value  = 'FETCH_ERR: PENDING_DATA_UNAVAILABLE';
         } finally {
             loading.value = false;
         }
@@ -90,7 +91,6 @@ export function useAdmin() {
     }
 
     return {
-        token,
         loading,
         error,
         isAuthenticated,
@@ -100,6 +100,6 @@ export function useAdmin() {
         fetchApproved, 
         handleApprove,
         handleDeny
-    }
+    };
 
 }

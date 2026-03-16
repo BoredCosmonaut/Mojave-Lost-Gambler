@@ -40,8 +40,8 @@ export async function approveSubmission(req,res) {
 export async function denySubmission(req,res) {
     try {
         const sub = await getSubmissionById(req.params.id)
+        console.log(sub)
         if(!sub) return res.status(404).json({message:'Couldnt find the submission'});
-        await createLocationFromSubmission(sub)
         await updateSubmissionStatus(sub.id,'Denied')
         res.json({message:'Submission denied'})
     } catch (err) {
