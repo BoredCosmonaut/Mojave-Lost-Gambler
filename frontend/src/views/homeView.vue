@@ -7,11 +7,11 @@
     const game = useGame();
     const router = useRouter();
     const regions = [
-      { name: "Mojave Wasteland", color: "#ffb642", bg: "/bgs/bg-new-vegas.jpg" },
-      { name: "Zion Canyon", color: "#1eff00", bg: "/bgs/honest-hearts-bg.jpg" }, 
-      { name: "The Divide", color: "#ff4444", bg: "/bgs/lonesome-road-bg.jpg" },
-      { name: "Big MT", color: "#00ccff", bg: "/bgs/owb-bg.jpg" },
-      { name: "Sierra Madre", color: "#ff3300", bg: "/bgs/dead-money-bg.jpg" }
+      { name: "mojave", color: "#ffb642", bg: "/bgs/bg-new-vegas.jpg" },
+      { name: "zion", color: "#1eff00", bg: "/bgs/honest-hearts-bg.jpg" }, 
+      { name: "divide", color: "#ff4444", bg: "/bgs/lonesome-road-bg.jpg" },
+      { name: "big_mt", color: "#00ccff", bg: "/bgs/owb-bg.jpg" },
+      { name: "sierra_madre", color: "#ff3300", bg: "/bgs/dead-money-bg.jpg" }
     ];
 
     const selectedIndex = ref(0);
@@ -22,7 +22,7 @@
     }
 
     const handleButtonClick = () => {
-        router.push('/play')
+        router.push(`/play/${currentRegion.value.name}`)
     };
 
     const displayScores = computed(() => game.topScores.value);

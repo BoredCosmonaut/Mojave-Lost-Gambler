@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^14.2.1",
-    "axios": "^1.13.4",
+    "axios": "1.13.4",
     "core-js": "^3.8.3",
     "leaflet": "^1.9.4",
     "vue": "^3.2.13",

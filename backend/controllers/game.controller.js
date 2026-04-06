@@ -3,7 +3,10 @@ import { calculateDistance,calculateScore } from "../utils/scoring.js";
 
 export async function startRound(req,res) {
     try {
-        const location = await getRandomLocation();
+        const region = req.params.region;
+        console.log('region:',region);
+        const location = await getRandomLocation(region);
+        console.log(location)
         res.status(200).json({message: 'New round started',location:location});
     } catch (err) {
         console.error('Error while getting location:',err);

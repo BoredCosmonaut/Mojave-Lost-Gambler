@@ -9,7 +9,7 @@ export default createRouter({
   history: createWebHistory(),
   routes: [
     {path: '/', component: homeView},
-    { path: '/play', component: PlayView },
+    { path: '/play/:zone', component: PlayView, props:false },
     { path: '/submit', component: SubmitView },
     {path: '/submitScore', component:SubmitScoreView},
     {path: '/admin/login', component:AdminLogin},

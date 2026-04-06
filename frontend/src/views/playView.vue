@@ -2,8 +2,12 @@
 import { onMounted, watch,computed } from 'vue';
 import { useGame } from '@/composables/useGame';
 import MojaveMap from '@/components/mojaveMap.vue';
+import ZionMap from '@/components/zionMap.vue';
+import DivideMap from '@/components/divideMap.vue';
+import BigMTMap from '@/components/bigMTMap.vue';
+import SierraMap from '@/components/sierraMap.vue';
 import LoadingOverlay from '@/components/loadingOverlay.vue';
-import { useRouter } from 'vue-router';
+import { useRouter,useRoute } from 'vue-router';
 import { useTransition,TransitionPresets } from '@vueuse/core';
 const {
   round,
@@ -17,9 +21,22 @@ const {
 } = useGame();
 
 const router = useRouter()
+const route = useRoute();
+
+const mapRegistry = {
+  mojave:MojaveMap,
+  zion:ZionMap,
+  divide:DivideMap,
+  big_mt:BigMTMap,
+  sierra_madre:SierraMap
+};
+
+const activeMapComponent = computed(() => {
+  const zone = route.params.zone || 'mojave';
+  return mapRegistry[zone] || MojaveMap;
+})
 
 onMounted(startRound);
-
 watch(isGameOver, (gameOver) => {
   if(gameOver) {
     router.push('/submitScore')
@@ -75,7 +92,8 @@ const displayedScore = computed(() => Math.round(output.value));
 
     <div class="hud-bottom-right">
       <div class="map-frame">
-        <MojaveMap 
+        <component
+          :is="activeMapComponent"
           @guess="onGuess"
           @next-round="handleNextRound" 
           :round="roundIndex" 
@@ -106,7 +124,7 @@ const displayedScore = computed(() => Math.round(output.value));
   filter: none;
 }
 
-/* TOP HUD */
+
 .hud-top {
   position: fixed;
   top: 0;
