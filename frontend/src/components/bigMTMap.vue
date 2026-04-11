@@ -24,9 +24,11 @@ let actualMarker = null;
 
 const MAP_SIZE = 1024;
 const HALF_MAP = 512;
-const GAME_MAX = 180000; 
-const X_OFFSET = 0; 
-const Y_OFFSET = 0;
+
+
+const GAME_MAX = 90112; 
+const X_OFFSET = 4800;     
+const Y_OFFSET = 32000;
 
 const gameToMap = (x, y) => {
   const lng = HALF_MAP + ((x + X_OFFSET) / GAME_MAX) * HALF_MAP;
@@ -83,7 +85,7 @@ watch(() => props.actualLocation, (loc) => {
   
   actualMarker = L.marker([lat, lng], { 
     icon: actualIcon, 
-    zIndexOffset: 1000 
+    zIndexOffset: 500 
   }).addTo(map);
 
   const group = new L.featureGroup([marker, actualMarker].filter(m => m));

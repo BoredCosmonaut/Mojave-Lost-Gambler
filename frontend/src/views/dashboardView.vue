@@ -2,7 +2,7 @@
     import { onMounted,ref,computed } from 'vue';
     import { useAdmin } from '@/composables/useAdmin';
 
-    const {loading,error,fetchApproved,fetchSubmissions,handleApprove,handleDeny} =useAdmin();
+    const {loading,error,fetchApproved,fetchSubmissions,handleApprove,handleDeny,handleDeleteLocation} =useAdmin();
     const items = ref([]);
     const viewMode = ref('preview');
     const selectedItem = ref(null);
@@ -24,13 +24,25 @@
         }
     };
 
-    const processAction = async(action,id) => {
-        const success = action == 'approve' ? await handleApprove(id) : await handleDeny(id);
-        if(success) {
-            items.value = items.value.filter(i => i.id !== id);
-            selectedItem.value = null;
-        }
-    }
+  const processAction = async (action, id) => {
+      let success = false;
+
+      if (action === 'approve') {
+          success = await handleApprove(id);
+      } else if (action === 'deny') {
+          success = await handleDeny(id);
+      } else if (action === 'delete') {
+          console.log('delete action triggered',id)
+          success = await handleDeleteLocation(id);
+      }
+
+      if (success) {
+          items.value = items.value.filter(i => i.id !== id);
+          selectedItem.value = null;
+      }
+  };
+
+
 
     onMounted(() => {
         loadData('pending')
@@ -88,6 +100,7 @@
                     <div class="metadata">
                         <p> <span class="label">COORD_LAT:</span>{{ selectedItem.y }}</p>
                         <p> <span class="label">COORD_LAT:</span>{{ selectedItem.x }}</p>
+                        <p> <span class="label">Region:</span>{{ selectedItem.region }}</p>
                     </div>
                     <div class="command-line">
                         <template v-if="viewMode == 'pending'">
@@ -99,7 +112,7 @@
                             </button>
                         </template>
                         <template v-else>
-                            <button @click="processAction('deny',selectedItem.id)" class="cmd-btn btn-red">
+                            <button @click="processAction('delete',selectedItem.id)" class="cmd-btn btn-red">
                                 [ PURGE_FROM_ARCHIVE ]
                             </button>
                         </template>

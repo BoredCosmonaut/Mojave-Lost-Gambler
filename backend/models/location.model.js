@@ -14,6 +14,10 @@ export async function getAllLocations() {
     }
 }
 
+export async function dbDeleteLocation(id) {
+    const result = await pool.query('DELETE FROM locations WHERE id = $1', [id]);
+    return result.rowCount > 0; 
+}
 export async function createLocationFromSubmission(sub) {
     await pool.query(`INSERT INTO locations(image_url,x,y,region) VALUES ($1,$2,$3,$4)`, [sub.image_url,sub.x,sub.y,sub.region]);
 }

@@ -6,7 +6,7 @@ export async function startRound(req,res) {
         const region = req.params.region;
         console.log('region:',region);
         const location = await getRandomLocation(region);
-        console.log(location)
+        console.log(`location:`,location)
         res.status(200).json({message: 'New round started',location:location});
     } catch (err) {
         console.error('Error while getting location:',err);

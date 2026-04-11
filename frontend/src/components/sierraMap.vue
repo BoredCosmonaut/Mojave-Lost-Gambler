@@ -23,9 +23,9 @@ let actualMarker = null;
 
 const MAP_SIZE = 1024;
 const HALF_MAP = 512;
-const GAME_MAX = 90000; 
-const X_OFFSET = 5000;  
-const Y_OFFSET = -12000;
+const GAME_MAX = 249856;
+const X_OFFSET = 4500; 
+const Y_OFFSET = 20480;
 
 const gameToMap = (x, y) => {
   const lng = HALF_MAP + ((x + X_OFFSET) / GAME_MAX) * HALF_MAP;

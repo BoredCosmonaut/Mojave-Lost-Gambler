@@ -1,5 +1,5 @@
 import {ref, computed } from 'vue'
-import {approveSubmission,denySubmission,getAllApproved,getSubmissions,loginAdmin} from '@/services/adminService'
+import {approveSubmission,denySubmission,getAllApproved,getSubmissions,loginAdmin,deleteLocation} from '@/services/adminService'
 
 const loading = ref(false);
 const error = ref(null);
@@ -90,6 +90,19 @@ export function useAdmin() {
         }
     }
 
+    async function handleDeleteLocation(id) {
+        loading.value = true;
+        try {
+            await deleteLocation(id);
+            return true;
+        } catch (err) {
+            error.value ="EXECUTION_ERR: DENIAL_FAILED";
+            return false
+        } finally {
+            loading.value = false
+        }
+    }
+
     return {
         loading,
         error,
@@ -99,7 +112,8 @@ export function useAdmin() {
         fetchSubmissions,
         fetchApproved, 
         handleApprove,
-        handleDeny
+        handleDeny,
+        handleDeleteLocation
     };
 
 }

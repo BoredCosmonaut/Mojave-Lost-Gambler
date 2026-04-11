@@ -9,7 +9,7 @@
     const name = ref('');
 
     onMounted(() => {
-        console.log(game.totalScore.value)
+        console.log(game.totalScore)
     })
 
     async function handleSubmit() {

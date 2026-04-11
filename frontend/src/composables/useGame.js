@@ -2,12 +2,11 @@ import {ref,computed} from 'vue'
 import * as gameService from '@/services/gameService'
 import * as scoreService from '@/services/scoreService'
 import { useRoute } from 'vue-router'
-const total_rounds = 5;
-
+const total_rounds = 3;
+const totalScore = ref(0);
 export function useGame() {
     const round = ref(null);
     const roundIndex = ref(0);
-    const totalScore = ref(0);
     const lastResult = ref(null);
     const loading = ref(false);
     const error = ref(null);
@@ -24,6 +23,7 @@ export function useGame() {
         try {
             const data = await gameService.getRound(currentRegion.value);
             round.value = data;
+            console.log(round.value)
             console.log(round.value.location.image_url)
             lastResult.value = null;
             roundIndex.value++;

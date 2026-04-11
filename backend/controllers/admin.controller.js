@@ -1,6 +1,6 @@
 import { getPendingSubmissions,getSubmissionById,updateSubmissionStatus } from "../models/submissions.model.js";
 import {getAdminByEmail} from '../models/admin.model.js'
-import { createLocationFromSubmission,getAllLocations } from "../models/location.model.js";
+import { createLocationFromSubmission,getAllLocations,dbDeleteLocation } from "../models/location.model.js";
 import {generateToken} from '../utils/generateToken.js';
 import bcrypt from 'bcrypt'
 
@@ -46,6 +46,22 @@ export async function denySubmission(req,res) {
         res.json({message:'Submission denied'})
     } catch (err) {
         console.error(err)
+    }
+}
+
+export async function deleteLocation(req, res) {
+    try {
+        const id = req.params.id;
+
+        const success = await dbDeleteLocation(id);
+        if (!success) {
+            return res.status(404).json({ message: 'Could not find the location' });
+        }
+
+        return res.json({ message: 'Location deleted successfully' });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: 'Internal Server Error' });
     }
 }
 
