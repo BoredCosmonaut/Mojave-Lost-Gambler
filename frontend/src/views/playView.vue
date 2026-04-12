@@ -75,7 +75,7 @@ const displayedScore = computed(() => Math.round(output.value));
     <img
       v-if="round?.location"
       :key="round.location.image_url" 
-      :src="`http://localhost:8080${round.location.image_url}`"
+      :src="round.location.image_url"
       class="round-bg"
     />
 

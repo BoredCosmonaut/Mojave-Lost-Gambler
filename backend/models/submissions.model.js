@@ -1,12 +1,20 @@
 import { pool } from "../db/index.js";
 
 export async function createSubmission(data) {
-    const {image_url,x,y} = data;
+    const { image_url, x, y, region } = data;
     try {
-        const result= await pool.query(`INSERT INTO submissions (image_url,x,y,region) VALUES ($1,$2,$3,$4)`, [data.image_url,data.x,data.y,data.region]);
+        const query = `
+            INSERT INTO submissions (image_url, x, y, region) 
+            VALUES ($1, $2, $3, $4) 
+            RETURNING *
+        `;
+        
+        const result = await pool.query(query, [image_url, x, y, region]);
+        
         return result.rows[0];        
     } catch (err) {
-        console.error(err)
+        console.error("DATABASE_ERROR:", err);
+        throw err; 
     }
 }
 

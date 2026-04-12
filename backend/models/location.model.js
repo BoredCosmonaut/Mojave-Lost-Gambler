@@ -1,6 +1,7 @@
 import { pool } from "../db/index.js";
 
 export async function getRandomLocation(region) {
+    console.log(`region in db`,region)
     const result = await pool.query(`SELECT * FROM locations WHERE region = $1 ORDER BY RANDOM() LIMIT 1 `, [region])
     return result.rows[0];
 }

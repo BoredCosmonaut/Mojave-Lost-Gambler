@@ -91,7 +91,7 @@
                     <div class="image-frame">
                         <img 
                             v-if="selectedItem.image_url"
-                            :src="`http://localhost:8080${selectedItem.image_url}`"
+                            :src="selectedItem.image_url"
                             class="raw-capture"
                             alt="Preview Image"
                         />

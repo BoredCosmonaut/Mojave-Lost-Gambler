@@ -1,10 +1,10 @@
 import { getTopScores,submitScore } from "../models/score.model.js";
 
 export async function createScore(req, res) {
-    const { player_name, score } = req.body; 
+    const { player_name, score,region } = req.body; 
 
     try {
-        await submitScore(player_name, score); 
+        await submitScore(player_name, score,region); 
         res.status(201).json({ message: 'Score submitted' });
     } catch (err) {
         res.status(500).json({ error: 'Database error' });

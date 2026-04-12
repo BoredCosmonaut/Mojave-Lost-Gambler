@@ -60,14 +60,17 @@
             <div v-if="displayScores?.length > 0" class="leaderboard-preview">
                 <h2 class="section-title">Top Scores</h2>
                 <div class="score-list">
-                    <div v-for="(entry, index) in displayScores.slice(0, 10)" :key="index" class="score-item">
-                        <span class="rank">{{ index < 9 ? '0' : '' }}{{ index + 1 }}</span>
-                        
-                        <span class="name">{{ entry.player_name }}</span> 
-                        
-                        <span class="dots"></span>
-                        <span class="val">{{ entry.score }}</span>
-                    </div>
+                  <div v-for="(entry, index) in displayScores.slice(0, 10)" :key="index" class="score-item">
+                      <span class="name">{{ entry.player_name }}</span> 
+                      
+                      <span class="dots"></span>
+                      
+                      <span class="region">{{ entry.region }}</span>
+
+                      <span class="dots"></span>
+
+                      <span class="score">{{ entry.score }}</span>
+                  </div>
                 </div>
             </div>
         </div>
@@ -225,21 +228,51 @@
 }
 
 .score-item {
-  display: flex;
-  align-items: center;
-  font-family: monospace;
-  font-size: 0.9rem;
-  margin-bottom: 0.6rem;
-  color: var(--theme-color);
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-family: monospace;
+    font-size: 0.9rem;
+    margin-bottom: 0.6rem;
 }
+
+
+.name {
+    width: 80px; 
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 
 .dots {
-  flex-grow: 1;
-  border-bottom: 1px dotted var(--theme-color);
-  margin: 0 12px;
-  opacity: 0.2;
+    flex-grow: 1;
+    border-bottom: 1px dotted var(--theme-color);
+    margin: 0 10px;
+    opacity: 0.2;
 }
 
+
+.region {
+    text-transform: uppercase;
+    font-weight: 400;
+    opacity: 0.8;
+    min-width: 80px;
+    text-align: center;
+}
+
+
+.score {
+    width: 60px;
+    text-align: right;
+    font-weight: 800;
+}
+
+.rank {
+    margin-right: 10px;
+    opacity: 0.5;
+}
 .val {
   font-weight: 800;
 }

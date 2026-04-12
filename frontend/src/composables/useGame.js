@@ -4,6 +4,7 @@ import * as scoreService from '@/services/scoreService'
 import { useRoute } from 'vue-router'
 const total_rounds = 3;
 const totalScore = ref(0);
+const activeRegion = ref('');
 export function useGame() {
     const round = ref(null);
     const roundIndex = ref(0);
@@ -12,6 +13,9 @@ export function useGame() {
     const error = ref(null);
     const topScores = ref([]);
     const route = useRoute();
+    if (route?.params?.zone) {
+        activeRegion.value = route.params.zone;
+    }
     const currentRegion = computed(() => route.params.zone);
     const isGameOver = computed(() =>
     roundIndex.value >= total_rounds
@@ -20,10 +24,11 @@ export function useGame() {
     async function startRound() {
         loading.value = true;
         error.value = null;
+        console.log(currentRegion.value)
         try {
             const data = await gameService.getRound(currentRegion.value);
             round.value = data;
-            console.log(round.value)
+            console.log(data)
             console.log(round.value.location.image_url)
             lastResult.value = null;
             roundIndex.value++;
@@ -66,7 +71,8 @@ export function useGame() {
         try {
             await scoreService.submitScore({
                 player_name: name,
-                score: totalScore.value
+                score: totalScore.value,
+                region: activeRegion.value
             });
         } catch (err) {
             error.value = err;

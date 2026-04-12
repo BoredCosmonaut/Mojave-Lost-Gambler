@@ -1,8 +1,8 @@
 import api from "./api";
 
-export async function submitScore(player_name,score) {
+export async function submitScore(player_name,score,region) {
     try {
-        const res = await api.post(`/scores/submitScore`, {player_name,score});
+        const res = await api.post(`/scores/submitScore`, {player_name,score,region});
         return res.data;
     } catch (err) {
         console.error(err);
