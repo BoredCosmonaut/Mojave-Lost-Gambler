@@ -5,22 +5,18 @@ dotenv.config();
 
 const { Pool } = pkg;
 
+// Use DATABASE_URL for production (Render), fallback to local variables for dev
 export const pool = new Pool({
-  user: process.env.PG_USER,
-  host: process.env.PG_HOST,
-  database: process.env.PG_DATABASE,
-  password: process.env.PG_PASSWORD,
-  port: Number(process.env.PG_PORT),
-  ssl: process.env.PG_SSL === 'true'
-    ? { rejectUnauthorized: false }
-    : false
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false 
+  }
 });
 
 pool.on('connect', () => {
-  console.log('Connected to PostgreSQL');
+  console.log('✅ [DATABASE_CONNECTED]');
 });
 
 pool.on('error', err => {
-  console.error('PostgreSQL error:', err);
+  console.error('❌ [DATABASE_ERROR]:', err);
 });
-
