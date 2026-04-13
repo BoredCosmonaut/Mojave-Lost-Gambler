@@ -20,7 +20,7 @@ export async function createSubmission(data) {
 
 export async function getPendingSubmissions() {
     try {
-        const result = await pool.query(`SELECT * FROM submissions WHERE status = 'Pending'`);
+        const result = await pool.query(`SELECT * FROM submissions WHERE status = 'pending'`);
         return result.rows;
     } catch (err) {
         console.error(err);
