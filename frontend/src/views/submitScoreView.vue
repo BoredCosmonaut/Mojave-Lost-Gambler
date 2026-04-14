@@ -1,5 +1,5 @@
 <script setup>
-    import {onMounted, ref} from 'vue'
+    import {ref} from 'vue'
     import { useRouter } from 'vue-router';
     import { useGame } from '@/composables/useGame';
     
