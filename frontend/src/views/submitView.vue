@@ -9,7 +9,7 @@
 
   const form = reactive({
     image:null,
-    x:0,
+    x:onabort,
     y:onabort,
     region:''
   });
@@ -99,7 +99,7 @@
           </div>
           <div class="step">
             <span class="step-num">03</span>
-            <p>Execute Command: <span class="cmd">GetPos X</span> and <span class="cmd">GetPos Y</span>.</p>
+            <p>Execute Command: <span class="cmd">player.GetPos X</span> and <span class="cmd">player.GetPos Y</span>.</p>
           </div>
           <div class="step">
             <span class="step-num">04</span>
