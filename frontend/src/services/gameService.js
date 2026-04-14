@@ -2,9 +2,7 @@ import api from "./api";
 
 export async function getRound(region) {
     try {
-        console.log(`region:`,region)
         const res = await api.get(`/game/round/${region}`);
-        console.log(`round loc data`,res)
         return res.data
     } catch (err) {
         console.error(err);

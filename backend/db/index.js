@@ -14,9 +14,9 @@ export const pool = new Pool({
 });
 
 pool.on('connect', () => {
-  console.log('✅ [DATABASE_CONNECTED]');
+  console.log('[DATABASE_CONNECTED]');
 });
 
 pool.on('error', err => {
-  console.error('❌ [DATABASE_ERROR]:', err);
+  console.error('[DATABASE_ERROR]:', err);
 });

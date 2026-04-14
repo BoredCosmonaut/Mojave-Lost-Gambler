@@ -8,10 +8,6 @@
 
     const name = ref('');
 
-    onMounted(() => {
-        console.log(game.totalScore)
-    })
-
     async function handleSubmit() {
         if(!name.value) return;
 

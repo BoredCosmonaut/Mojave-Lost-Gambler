@@ -11,7 +11,6 @@
 
     const onLogin = async() => {
         const result = await handleLogin(email.value,password.value);
-        console.log(result)
         if(result.success) {
             router.push('/admin/dashboard');
         }

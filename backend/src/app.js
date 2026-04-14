@@ -11,7 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
 app.use(cors({
-  origin: "http://localhost:8080", 
+  origin: ['https://mojave-lost-gambler.vercel.app', 'http://localhost:8080'], 
   credentials: true
 }));
 

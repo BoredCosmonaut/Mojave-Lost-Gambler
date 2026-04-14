@@ -50,9 +50,6 @@ const output = useTransition(totalScore,{
 
 async function onGuess(lat, lng) {
   if (loading.value || isGameOver.value || !round.value?.location) return;
-  console.log('Submitting guess:');
-  console.log('Player guess ->', { lat, lng });
-  console.log('Actual location ->', round.value.location);
 
   await guessRound(
     round.value.location.x,

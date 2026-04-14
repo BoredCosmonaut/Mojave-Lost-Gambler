@@ -24,12 +24,9 @@ export function useGame() {
     async function startRound() {
         loading.value = true;
         error.value = null;
-        console.log(currentRegion.value)
         try {
             const data = await gameService.getRound(currentRegion.value);
             round.value = data;
-            console.log(data)
-            console.log(round.value.location.image_url)
             lastResult.value = null;
             roundIndex.value++;
         } catch (err) {
@@ -43,15 +40,12 @@ export function useGame() {
     async function guessRound(actualX,actualY,guessX,guessY) {
         loading.value = true;
         try {
-            console.log('guessRound called with:', { actualX, actualY, guessX, guessY });
             const res = await gameService.submitGuess({
                 actualX: actualX,
                 actualY:actualY,
                 guessX:guessX,
                 guessY:guessY
             });
-            console.log('Distance:', res.data.distance);
-            console.log('Score:', res.data.score);
             lastResult.value = {
                 ...res.data,
                 actual: { x: actualX, y: actualY }
@@ -67,7 +61,6 @@ export function useGame() {
 
     async function submitScore(name) {
         loading.value = true;
-        console.log(totalScore.value);
         try {
             await scoreService.submitScore({
                 player_name: name,
@@ -94,8 +87,6 @@ export function useGame() {
             } else {
                 topScores.value = []; 
             }
-            
-            console.log("Processed Scores:", topScores.value);
         } catch (err) {
             error.value = err;
             topScores.value = []; 

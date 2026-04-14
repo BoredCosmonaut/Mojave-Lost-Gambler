@@ -16,11 +16,9 @@
         if(mode == 'pending') {
             const res = await fetchSubmissions();
             items.value = res?.pending || [];
-            console.log(items)
         } else {
             const res= await fetchApproved();
             items.value = res?.locations || res?.approved || res || [];
-            console.log(items)
         }
     };
 
@@ -32,7 +30,6 @@
       } else if (action === 'deny') {
           success = await handleDeny(id);
       } else if (action === 'delete') {
-          console.log('delete action triggered',id)
           success = await handleDeleteLocation(id);
       }
 

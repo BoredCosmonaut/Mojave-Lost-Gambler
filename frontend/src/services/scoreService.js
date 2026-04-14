@@ -13,7 +13,6 @@ export async function submitScore(player_name,score,region) {
 export async function getTopScores() {
     try {
         const res = await api.get('/scores/leaderboard');
-        console.log(res.data)
         return res.data;
     } catch (err) {
         console.error(err);

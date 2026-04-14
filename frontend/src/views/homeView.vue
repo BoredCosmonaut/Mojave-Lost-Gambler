@@ -28,7 +28,6 @@
     const displayScores = computed(() => game.topScores.value);
     onMounted(async() => {
         await game.getTopScores();
-        console.log("Scores updated:", game.topScores.value);
     })
 
 </script>
